@@ -2,136 +2,143 @@
 "   the same commands as the original .vimrc configuration.
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
-
-
+ 
+ 
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
-
+ 
 let mapleader=" "
-
-" Do increment
-set incsearch
-
-set hls
+ 
+set incsearch        " Highlight matches as you type
+set hlsearch         " Highlight all search matches
+set ignorecase       " Ignore case in searches
+set smartcase        " Override ignorecase if search pattern contains uppercase letters
+ 
 set nu
 set nornu
-
-" case insensitive search unless theres a capital letter in search term
-set ignorecase
-set smartcase
-
+ 
+set easymotion
+ 
+" Keep typing to refine your target (AceJump behavior)
+let g:EasyMotion_do_mapping = 0
+ 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
-
+ 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
-" Highlight copied text
+ 
+" Highlightsymotionsymotionsymotion-prefix)-prefix)-prefix) copied text
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
-
+ 
 " Clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
-
-" don't deal with vim register stuff, windows clipboard is good enough 
-set clipboard+=unnamed
-
+ 
+set clipboard+=unnamed " Sync IdeaVim clipboard with system clipboard
+set ideaput          " Use IDE's put functionality
+ 
+set visualbell       " Use visual feedback instead of an audible bell
+set noerrorbells     " Disable error bells
+ 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
 ""map \r <Action>(ReformatCode)
-
+ 
 "" Map <leader>d to pop Debug actions menu
 map <leader>d <Action>(DebugMainMenu)
-
+ 
 "" Map <leader>e to show Error desc
-map <leader>e <Action>(ShowErrorDescription)
-
+map <leader>e <Action>(ShowHoverInfo)
+ 
 "" Map <leader>x to evaluate eXpression
 map <leader>x <Action>(QuickEvaluateExpression)
-
+ 
 "" Map leader b to toggle the Breakpoint on the current line
 map <leader>b <Action>(ToggleLineBreakpoint)
-
+ 
 "" Map / to IJ find (disabled cuz trying to get used to vim way of search and replace)
 ""map / <Action>(Find)
-
+ 
 "" Map ctrl f to IJ Find
 map <C-f> <Action>(Find)
-
-"" Map leader f to IJ Search Everywhere
-map <leader>f <Action>(SearchEverywhere)
-
+ 
 "" Map leader a to IJ Action
 map <leader>a <Action>(GotoAction)
-
+ 
 "" Map ctrl j and k to down and up one tab
 nnoremap <C-j> gt
-
+ 
 nnoremap <C-k> gT
-
+ 
 "" Map ctrl l to next splitter
 map <C-l> <Action>(NextSplitter)
-
+ 
 "" Map ctrl h to prev splitter
 map <C-h> <Action>(PrevSplitter)
-
+ 
 "" Map leader v to visual block
 noremap <leader>v <C-v>
-
+ 
 "" Map leader q to Quick doc
 map <leader>q <Action>(QuickJavaDoc)
-
+ 
 "" Map leader h to Hide all windows
 map <leader>h <Action>(HideAllWindows)
-
+ 
 "" Map leader s to Select in
 map <leader>s <Action>(SelectIn)
-
+ 
 "" Map leader r to Rename 
 map <leader>r <Action>(RenameElement)<Esc>
-
+ 
 "" Map leader R to Refactor
 map <leader>R <Action>(RefactoringMenu)<Esc>
-
+ 
 "" Map leader delete to delete current tab
 map <leader><Del> <Action>(CloseContent)
-
+ 
 "" Map leader p to Put last yanked text (as opposed to text more recently deleted)
 map <leader>p "0p
-
+ 
 "" Map leader z to toggle Zen mode 
 map <leader>z <Action>(ToggleZenMode)
-
+ 
 "" Map leader w to open Window menu
 map <leader>w <Action>(WindowMenu)
-
+ 
 "" Map leader g to IJ GoTo
 map <leader>g <Action>(Uml.SourceActionsGroup.GoTo)
-
+ 
 "" Map leader m to Mute breakpoints
 map <leader>m <Action>(XDebugger.MuteBreakpoints)
-
+ 
 "" Map leader t to Touchbar
 map <leader>t <Action>(TouchBar)
-
+ 
 "" Map leader leader to switcher, leading you to a new space..? idk
-map <leader><leader> <Action>(Switcher)
-
-"" Map shift h (H) to back
-map H <Action>(Back)
-
-"" Map shift l (L) to forward
-map L <Action>(Forward)
-
-"" Map `` to back
-map `` <Action>(Back)
-
+"" map <leader><leader> <Action>(Switcher) "" Map leader leader to showIntentionActions
+"" map <leader><leader> <Action>(ShowIntentionActions)
+"" Jump to any word on screen (built-in IdeaVim)
+""map <leader><leader> <Action>(AceAction)
+ 
 "" Map gr to Go to Related symbol
 map gr <Action>(GotoRelated)
-
-""some more search related remappings
-nnoremap <CR> n
-map J n
-map K N
+ 
+"some more search related remappings
+""nnoremap <CR> n
+""nnoremap <S-CR> N
+"map <CR> <Nop>
+"map <S-CR> <Nop>
+ 
+" Map  leader leader to bidirectional character search (type any character to jump)
+nmap <leader><leader> <Plug>(easymotion-s)
+ 
+" Operator-pending mode mappings (for use with d, c, y, etc.)
+omap <leader><leader> <Plug>(easymotion-s)
+ 
+ 
+" Visual mode mappings for EasyMotion
+vmap <leader><leader> <Plug>(easymotion-s)
